@@ -44,7 +44,6 @@ C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.1\Mvc
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.1\MvcMovie.pdb
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.1\MvcMovie.Views.dll
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\bin\Debug\netcoreapp2.1\MvcMovie.Views.pdb
-C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.csprojAssemblyReference.cache
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.csproj.CoreCompileInputs.cache
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.RazorAssemblyInfo.cache
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.RazorAssemblyInfo.cs
@@ -76,3 +75,4 @@ C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\Mvc
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.dll
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.pdb
 C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.csproj.CopyComplete
+C:\Users\Res Solution\source\repos\MvcMovie\MvcMovie\obj\Debug\netcoreapp2.1\MvcMovie.csprojAssemblyReference.cache

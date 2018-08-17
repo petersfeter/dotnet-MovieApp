@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Models;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20180817082914_AddTableMovieType")]
+    partial class AddTableMovieType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,9 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Genre");
-
-                    b.Property<int?>("MovieTypeFK");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
@@ -40,11 +42,7 @@ namespace MvcMovie.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("TypeId");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("MovieTypeFK");
 
                     b.ToTable("Movie");
                 });
@@ -54,18 +52,11 @@ namespace MvcMovie.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Type");
+                    b.Property<string>("Genre");
 
                     b.HasKey("ID");
 
                     b.ToTable("MovieType");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.Movie", b =>
-                {
-                    b.HasOne("MvcMovie.Models.MovieType", "MovieType")
-                        .WithMany()
-                        .HasForeignKey("MovieTypeFK");
                 });
 #pragma warning restore 612, 618
         }
