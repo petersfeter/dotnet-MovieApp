@@ -39,6 +39,12 @@ namespace MvcMovie.Controllers
                 movies = movies.Where(x => x.Genre == movieGenre);
             }
 
+            foreach ( var item in movies)
+            {
+                var movieType = await _context.MovieType.FirstOrDefaultAsync(m => m.ID == item.TypeId);
+                item.MovieType = movieType;
+            }
+
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await movies.ToListAsync();
@@ -65,9 +71,24 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var movieType = await _context.MovieType.ToListAsync();
+
+            var model = new MovieCreateViewModel();
+
+            model.movieType = new List<SelectListItem>();
+
+            foreach (var item in movieType)
+            {
+                model.movieType.Add(new SelectListItem()
+                {
+                    Text = item.Type,
+                    Value = item.ID.ToString()
+                });
+            }
+
+            return View(model);
         }
 
         // POST: Movies/Create
@@ -75,10 +96,11 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Create(int movieType, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
+                movie.TypeId = movieType;
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -95,11 +117,35 @@ namespace MvcMovie.Controllers
             }
 
             var movie = await _context.Movie.FindAsync(id);
+
             if (movie == null)
             {
                 return NotFound();
             }
-            return View(movie);
+
+            var movieType = await _context.MovieType.ToListAsync();
+
+            var model = new MovieCreateViewModel();
+
+            model.movieType = new List<SelectListItem>();
+
+            foreach (var item in movieType)
+            {
+                model.movieType.Add(new SelectListItem()
+                {
+                    Text = item.Type,
+                    Value = item.ID.ToString(),
+                    Selected = item.ID == movie.TypeId
+                });
+            }
+
+            model.rating = movie.Rating;
+            model.title = movie.Title;
+            model.releaseDate = movie.ReleaseDate;
+            model.price = movie.Price;
+            model.ID = movie.ID;
+
+            return View(model);
         }
 
         // POST: Movies/Edit/5
@@ -107,7 +153,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating, TypeId")] Movie movie)
         {
             if (id != movie.ID)
             {
